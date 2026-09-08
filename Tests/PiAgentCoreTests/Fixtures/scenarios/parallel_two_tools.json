@@ -1,0 +1,30 @@
+{
+  "name": "parallel_two_tools",
+  "systemPrompt": "You are a test agent.",
+  "prompt": "echo a and b",
+  "tokenSize": 2,
+  "toolExecution": "parallel",
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "tools": [
+    {
+      "name": "echo",
+      "description": "Echo text back",
+      "parameters": {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"]},
+      "executionMode": "parallel",
+      "results": [
+        {"content": [{"type": "text", "text": "echo: a"}]},
+        {"content": [{"type": "text", "text": "echo: b"}]}
+      ]
+    }
+  ],
+  "responses": [
+    {"content": [
+      {"type": "toolCall", "id": "call_1", "name": "echo", "argumentsText": "{\"text\":\"a\"}"},
+      {"type": "toolCall", "id": "call_2", "name": "echo", "argumentsText": "{\"text\":\"b\"}"}
+    ], "stopReason": "toolUse"},
+    {"content": [{"type": "text", "text": "both done"}], "stopReason": "stop"}
+  ],
+  "batches": [{"completionOrder": [2, 1]}],
+  "actions": []
+}

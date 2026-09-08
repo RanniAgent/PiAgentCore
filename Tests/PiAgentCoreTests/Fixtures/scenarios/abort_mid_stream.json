@@ -1,0 +1,17 @@
+{
+  "name": "abort_mid_stream",
+  "systemPrompt": "You are a test agent.",
+  "prompt": "tell me a long story",
+  "tokenSize": 2,
+  "toolExecution": "parallel",
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "tools": [],
+  "responses": [
+    {"content": [{"type": "text", "text": "Once upon a time there was a very long story that kept going and going without an end in sight."}], "stopReason": "stop"}
+  ],
+  "batches": [],
+  "actions": [
+    {"on": "message_update", "occurrence": 3, "do": "abort"}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "one_tool",
+  "systemPrompt": "You are a test agent.",
+  "prompt": "hi",
+  "tokenSize": 2,
+  "toolExecution": "parallel",
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "tools": [
+    {
+      "name": "echo",
+      "description": "Echo text back",
+      "parameters": {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"]},
+      "executionMode": "parallel",
+      "results": [
+        {"updates": ["echo: "], "content": [{"type": "text", "text": "echo: a"}]}
+      ]
+    }
+  ],
+  "responses": [
+    {"content": [{"type": "toolCall", "id": "call_1", "name": "echo", "argumentsText": "{\"text\":\"a\"}"}], "stopReason": "toolUse"},
+    {"content": [{"type": "text", "text": "done"}], "stopReason": "stop"}
+  ],
+  "batches": [{"completionOrder": [1]}],
+  "actions": []
+}

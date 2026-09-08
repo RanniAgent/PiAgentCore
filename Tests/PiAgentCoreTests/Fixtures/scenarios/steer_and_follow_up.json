@@ -1,0 +1,20 @@
+{
+  "name": "steer_and_follow_up",
+  "systemPrompt": "You are a test agent.",
+  "prompt": "hi",
+  "tokenSize": 2,
+  "toolExecution": "parallel",
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "tools": [],
+  "responses": [
+    {"content": [{"type": "text", "text": "first answer"}], "stopReason": "stop"},
+    {"content": [{"type": "text", "text": "second answer"}], "stopReason": "stop"},
+    {"content": [{"type": "text", "text": "third answer"}], "stopReason": "stop"}
+  ],
+  "batches": [],
+  "actions": [
+    {"on": "message_start", "occurrence": 2, "do": "steer", "text": "wait, one more thing"},
+    {"on": "message_end", "occurrence": 4, "do": "followUp", "text": "and then?"}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "text_only",
+  "systemPrompt": "You are a test agent.",
+  "prompt": "hi",
+  "tokenSize": 2,
+  "toolExecution": "parallel",
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "tools": [],
+  "responses": [
+    {"content": [{"type": "text", "text": "Hello there, how can I help you today?"}], "stopReason": "stop"}
+  ],
+  "batches": [],
+  "actions": []
+}

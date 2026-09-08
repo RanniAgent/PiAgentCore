@@ -1,0 +1,23 @@
+{
+  "name": "length_truncation",
+  "systemPrompt": "You are a test agent.",
+  "prompt": "do it",
+  "tokenSize": 2,
+  "toolExecution": "parallel",
+  "steeringMode": "one-at-a-time",
+  "followUpMode": "one-at-a-time",
+  "tools": [
+    {
+      "name": "echo",
+      "description": "Echo text back",
+      "parameters": {"type": "object", "properties": {"text": {"type": "string"}}, "required": ["text"]},
+      "results": [{"content": [{"type": "text", "text": "never used"}]}]
+    }
+  ],
+  "responses": [
+    {"content": [{"type": "toolCall", "id": "call_1", "name": "echo", "argumentsText": "{\"text\":\"a\"}"}], "stopReason": "length"},
+    {"content": [{"type": "text", "text": "recovered"}], "stopReason": "stop"}
+  ],
+  "batches": [],
+  "actions": []
+}
