@@ -11,3 +11,4 @@
 | packages/ai/src/utils/event-stream.ts | Sources/PiAgentCore/Streaming/AssistantMessageEventStream.swift | 终值可空；多了取消回调 |
 | pi-ai 各 api 适配器的 partial 拼装 | Sources/PiAgentCore/Streaming/AssistantMessageAssembler.swift | 抽成共用装配器 |
 | packages/ai/src/providers/faux.ts（streamWithDeltas） | Sources/PiAgentTestSupport/FauxStreamFn.swift | 固定切块；abort 检查点相同 |
+| packages/agent/src/agent-loop.ts | Sources/PiAgentCore/Loop/AgentLoop.swift | 函数一对一；signal → Task.isCancelled；流式期间的上下文用 StreamCollector actor 累加 |
