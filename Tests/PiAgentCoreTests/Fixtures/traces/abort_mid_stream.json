@@ -1,0 +1,100 @@
+{
+  "scenario": "abort_mid_stream",
+  "piVersion": "0.85.1",
+  "events": [
+    {
+      "type": "agent_start"
+    },
+    {
+      "type": "turn_start"
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "tell me a long story"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "tell me a long story"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "assistant",
+        "stopReason": "pending",
+        "content": []
+      }
+    },
+    {
+      "type": "message_update",
+      "event": "text_start",
+      "contentIndex": 0
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "Once upo"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "n a time"
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "aborted",
+        "errorMessage": "Request was aborted",
+        "content": "<aborted>"
+      }
+    },
+    {
+      "type": "turn_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "aborted",
+        "errorMessage": "Request was aborted",
+        "content": "<aborted>"
+      },
+      "toolResults": []
+    },
+    {
+      "type": "agent_end",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "tell me a long story"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "stopReason": "aborted",
+          "errorMessage": "Request was aborted",
+          "content": "<aborted>"
+        }
+      ]
+    }
+  ]
+}

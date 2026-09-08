@@ -1,0 +1,136 @@
+{
+  "scenario": "text_only",
+  "piVersion": "0.85.1",
+  "events": [
+    {
+      "type": "agent_start"
+    },
+    {
+      "type": "turn_start"
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "hi"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "hi"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "assistant",
+        "stopReason": "pending",
+        "content": []
+      }
+    },
+    {
+      "type": "message_update",
+      "event": "text_start",
+      "contentIndex": 0
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "Hello th"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "ere, how"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": " can I h"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "elp you "
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "today?"
+    },
+    {
+      "type": "message_update",
+      "event": "text_end",
+      "contentIndex": 0,
+      "content": "Hello there, how can I help you today?"
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hello there, how can I help you today?"
+          }
+        ]
+      }
+    },
+    {
+      "type": "turn_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "Hello there, how can I help you today?"
+          }
+        ]
+      },
+      "toolResults": []
+    },
+    {
+      "type": "agent_end",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "hi"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "stopReason": "stop",
+          "content": [
+            {
+              "type": "text",
+              "text": "Hello there, how can I help you today?"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

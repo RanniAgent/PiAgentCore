@@ -1,0 +1,399 @@
+{
+  "scenario": "parallel_two_tools",
+  "piVersion": "0.85.1",
+  "events": [
+    {
+      "type": "agent_start"
+    },
+    {
+      "type": "turn_start"
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "echo a and b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "echo a and b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "assistant",
+        "stopReason": "pending",
+        "content": []
+      }
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_start",
+      "contentIndex": 0
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_delta",
+      "contentIndex": 0,
+      "delta": "{\"text\":"
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_delta",
+      "contentIndex": 0,
+      "delta": "\"a\"}"
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_end",
+      "contentIndex": 0,
+      "toolCallId": "tc1"
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_start",
+      "contentIndex": 1
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_delta",
+      "contentIndex": 1,
+      "delta": "{\"text\":"
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_delta",
+      "contentIndex": 1,
+      "delta": "\"b\"}"
+    },
+    {
+      "type": "message_update",
+      "event": "toolcall_end",
+      "contentIndex": 1,
+      "toolCallId": "tc2"
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "toolUse",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "tc1",
+            "name": "echo",
+            "arguments": {
+              "text": "a"
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "tc2",
+            "name": "echo",
+            "arguments": {
+              "text": "b"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "tool_execution_start",
+      "toolCallId": "tc1",
+      "toolName": "echo",
+      "args": {
+        "text": "a"
+      }
+    },
+    {
+      "type": "tool_execution_start",
+      "toolCallId": "tc2",
+      "toolName": "echo",
+      "args": {
+        "text": "b"
+      }
+    },
+    {
+      "type": "tool_execution_end",
+      "toolCallId": "tc2",
+      "isError": false,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "echo: a"
+          }
+        ]
+      }
+    },
+    {
+      "type": "tool_execution_end",
+      "toolCallId": "tc1",
+      "isError": false,
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "echo: b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "tc1",
+        "toolName": "echo",
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "echo: b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "tc1",
+        "toolName": "echo",
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "echo: b"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "tc2",
+        "toolName": "echo",
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "echo: a"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "toolResult",
+        "toolCallId": "tc2",
+        "toolName": "echo",
+        "isError": false,
+        "content": [
+          {
+            "type": "text",
+            "text": "echo: a"
+          }
+        ]
+      }
+    },
+    {
+      "type": "turn_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "toolUse",
+        "content": [
+          {
+            "type": "toolCall",
+            "id": "tc1",
+            "name": "echo",
+            "arguments": {
+              "text": "a"
+            }
+          },
+          {
+            "type": "toolCall",
+            "id": "tc2",
+            "name": "echo",
+            "arguments": {
+              "text": "b"
+            }
+          }
+        ]
+      },
+      "toolResults": [
+        {
+          "role": "toolResult",
+          "toolCallId": "tc1",
+          "toolName": "echo",
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "echo: b"
+            }
+          ]
+        },
+        {
+          "role": "toolResult",
+          "toolCallId": "tc2",
+          "toolName": "echo",
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "echo: a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "turn_start"
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "assistant",
+        "stopReason": "pending",
+        "content": []
+      }
+    },
+    {
+      "type": "message_update",
+      "event": "text_start",
+      "contentIndex": 0
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "both don"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "e"
+    },
+    {
+      "type": "message_update",
+      "event": "text_end",
+      "contentIndex": 0,
+      "content": "both done"
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "both done"
+          }
+        ]
+      }
+    },
+    {
+      "type": "turn_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "both done"
+          }
+        ]
+      },
+      "toolResults": []
+    },
+    {
+      "type": "agent_end",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "echo a and b"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "stopReason": "toolUse",
+          "content": [
+            {
+              "type": "toolCall",
+              "id": "tc1",
+              "name": "echo",
+              "arguments": {
+                "text": "a"
+              }
+            },
+            {
+              "type": "toolCall",
+              "id": "tc2",
+              "name": "echo",
+              "arguments": {
+                "text": "b"
+              }
+            }
+          ]
+        },
+        {
+          "role": "toolResult",
+          "toolCallId": "tc1",
+          "toolName": "echo",
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "echo: b"
+            }
+          ]
+        },
+        {
+          "role": "toolResult",
+          "toolCallId": "tc2",
+          "toolName": "echo",
+          "isError": false,
+          "content": [
+            {
+              "type": "text",
+              "text": "echo: a"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "stopReason": "stop",
+          "content": [
+            {
+              "type": "text",
+              "text": "both done"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

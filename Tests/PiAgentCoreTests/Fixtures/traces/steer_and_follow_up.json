@@ -1,0 +1,296 @@
+{
+  "scenario": "steer_and_follow_up",
+  "piVersion": "0.85.1",
+  "events": [
+    {
+      "type": "agent_start"
+    },
+    {
+      "type": "turn_start"
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "hi"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "hi"
+          }
+        ]
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "assistant",
+        "stopReason": "pending",
+        "content": []
+      }
+    },
+    {
+      "type": "message_update",
+      "event": "text_start",
+      "contentIndex": 0
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "first an"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "swer"
+    },
+    {
+      "type": "message_update",
+      "event": "text_end",
+      "contentIndex": 0,
+      "content": "first answer"
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "first answer"
+          }
+        ]
+      }
+    },
+    {
+      "type": "turn_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "first answer"
+          }
+        ]
+      },
+      "toolResults": []
+    },
+    {
+      "type": "turn_start"
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "user",
+        "content": "wait, one more thing"
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "user",
+        "content": "wait, one more thing"
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "assistant",
+        "stopReason": "pending",
+        "content": []
+      }
+    },
+    {
+      "type": "message_update",
+      "event": "text_start",
+      "contentIndex": 0
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "second a"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "nswer"
+    },
+    {
+      "type": "message_update",
+      "event": "text_end",
+      "contentIndex": 0,
+      "content": "second answer"
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "second answer"
+          }
+        ]
+      }
+    },
+    {
+      "type": "turn_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "second answer"
+          }
+        ]
+      },
+      "toolResults": []
+    },
+    {
+      "type": "turn_start"
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "user",
+        "content": "and then?"
+      }
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "user",
+        "content": "and then?"
+      }
+    },
+    {
+      "type": "message_start",
+      "message": {
+        "role": "assistant",
+        "stopReason": "pending",
+        "content": []
+      }
+    },
+    {
+      "type": "message_update",
+      "event": "text_start",
+      "contentIndex": 0
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "third an"
+    },
+    {
+      "type": "message_update",
+      "event": "text_delta",
+      "contentIndex": 0,
+      "delta": "swer"
+    },
+    {
+      "type": "message_update",
+      "event": "text_end",
+      "contentIndex": 0,
+      "content": "third answer"
+    },
+    {
+      "type": "message_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "third answer"
+          }
+        ]
+      }
+    },
+    {
+      "type": "turn_end",
+      "message": {
+        "role": "assistant",
+        "stopReason": "stop",
+        "content": [
+          {
+            "type": "text",
+            "text": "third answer"
+          }
+        ]
+      },
+      "toolResults": []
+    },
+    {
+      "type": "agent_end",
+      "messages": [
+        {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "hi"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "stopReason": "stop",
+          "content": [
+            {
+              "type": "text",
+              "text": "first answer"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": "wait, one more thing"
+        },
+        {
+          "role": "assistant",
+          "stopReason": "stop",
+          "content": [
+            {
+              "type": "text",
+              "text": "second answer"
+            }
+          ]
+        },
+        {
+          "role": "user",
+          "content": "and then?"
+        },
+        {
+          "role": "assistant",
+          "stopReason": "stop",
+          "content": [
+            {
+              "type": "text",
+              "text": "third answer"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
