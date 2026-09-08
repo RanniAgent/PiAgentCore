@@ -144,11 +144,12 @@ public actor Agent {
         clearAllQueues()
     }
 
+    /// 和上游 normalizePromptInput 一致：字符串 prompt 一律变成块数组（哪怕没有图片），
+    /// 不是 `.text(...)`，否则金标准序列里的 user content 形状对不上。
     public func prompt(_ text: String, images: [ImageContent] = []) async throws {
         var blocks: [UserContentBlock] = [.text(TextContent(text: text))]
         blocks.append(contentsOf: images.map { .image($0) })
-        let content: UserContent = images.isEmpty ? .text(text) : .blocks(blocks)
-        try await prompt(messages: [.user(UserMessage(content: content))])
+        try await prompt(messages: [.user(UserMessage(content: .blocks(blocks)))])
     }
 
     public func prompt(messages: [AgentMessage]) async throws {

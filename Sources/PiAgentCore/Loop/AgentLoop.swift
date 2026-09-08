@@ -152,6 +152,9 @@ public enum AgentLoop {
         let collector = StreamCollector(messages: context.messages)
         await withTaskCancellationHandler {
             for await event in response.events {
+                // 取消后不再消费已经排队的增量：pi 靠 JS 微任务让供应商与消费方逐条交替，
+                // Swift 的 AsyncStream 是无界缓冲，供应商可能已经跑完，所以由循环来刹车。
+                if Task.isCancelled { break }
                 switch event {
                 case .start(let partial):
                     await collector.appendPartial(.assistant(partial))
@@ -170,11 +173,25 @@ public enum AgentLoop {
             Task { await response.cancel() }
         }
 
-        let finalMessage = await response.result() ?? AssistantMessage(
-            content: [], api: config.model.api, provider: config.model.provider, model: config.model.id,
-            stopReason: Task.isCancelled ? .aborted : .error,
-            errorMessage: "Stream ended without a terminal event"
-        )
+        let finalMessage: AssistantMessage
+        if Task.isCancelled {
+            // 取消时不等 result()：供应商可能不发终止事件就退出，那样 result() 永远不回。
+            // 这一轮一律记为 aborted，和 pi 在 signal.aborted 下的产出一致。
+            await response.cancel()
+            var aborted = await collector.lastPartial ?? AssistantMessage(
+                content: [], api: config.model.api, provider: config.model.provider, model: config.model.id,
+                stopReason: .aborted
+            )
+            aborted.stopReason = .aborted
+            aborted.errorMessage = "Request was aborted"
+            finalMessage = aborted
+        } else {
+            finalMessage = await response.result() ?? AssistantMessage(
+                content: [], api: config.model.api, provider: config.model.provider, model: config.model.id,
+                stopReason: .error,
+                errorMessage: "Stream ended without a terminal event"
+            )
+        }
         if await collector.addedPartial {
             await collector.replaceLast(.assistant(finalMessage))
         } else {
@@ -190,12 +207,15 @@ public enum AgentLoop {
     private actor StreamCollector {
         private(set) var messages: [AgentMessage]
         private(set) var addedPartial = false
+        /// 最后一份助手消息快照，取消时拿它当基底。
+        private(set) var lastPartial: AssistantMessage?
 
         init(messages: [AgentMessage]) { self.messages = messages }
 
         func appendPartial(_ message: AgentMessage) {
             messages.append(message)
             addedPartial = true
+            if case .assistant(let assistant) = message { lastPartial = assistant }
         }
 
         func append(_ message: AgentMessage) { messages.append(message) }
@@ -203,6 +223,7 @@ public enum AgentLoop {
         func replaceLast(_ message: AgentMessage) {
             guard !messages.isEmpty else { return }
             messages[messages.count - 1] = message
+            if case .assistant(let assistant) = message { lastPartial = assistant }
         }
     }
 
