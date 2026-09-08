@@ -8,3 +8,5 @@
 | packages/ai/src/types.ts（内容块与消息） | Sources/PiAgentCore/Types/Content.swift、Messages.swift | JSON 形状一致；custom 分支代替声明合并；未移植 AssistantMessage.diagnostics / deferred |
 | packages/ai/src/types.ts（Model / SimpleStreamOptions / Tool / AssistantMessageEvent） | Sources/PiAgentCore/Types/Model.swift、Tool.swift、Events.swift | SimpleStreamOptions 只取子集 |
 | packages/agent/src/types.ts（AgentTool / AgentEvent / AgentLoopConfig / 钩子上下文） | Sources/PiAgentCore/Types/Tool.swift、Events.swift、LoopConfig.swift | 钩子上下文是值快照 |
+| packages/ai/src/utils/event-stream.ts | Sources/PiAgentCore/Streaming/AssistantMessageEventStream.swift | 终值可空；多了取消回调 |
+| pi-ai 各 api 适配器的 partial 拼装 | Sources/PiAgentCore/Streaming/AssistantMessageAssembler.swift | 抽成共用装配器 |
