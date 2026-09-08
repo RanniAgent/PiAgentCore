@@ -1,0 +1,10 @@
+PiAgentCore is a Swift port of the agent-loop contract of pi
+(https://github.com/earendil-works/pi, packages/agent and packages/ai),
+copyright (c) 2025 Mario Zechner, MIT License.
+
+The port covers types, the agent loop, the Agent state machine, streaming
+event assembly, tool-argument validation and streaming-JSON repair. It does
+not include pi's provider adapters, Node execution environment, extension
+system or lane-based session runtime.
+
+Currently aligned with pi 0.85.1. See UPSTREAM.md.
