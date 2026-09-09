@@ -66,3 +66,44 @@ agent_start · turn_start · message_start · message_update · message_end · t
 ## 7. 对齐方式
 
 UPSTREAM.md 记录对齐版本；docs/upstream-map.md 记录文件映射；Tests/PiAgentCoreTests/Fixtures 里的金标准由桌面端 `npm run trace:export` 导出，归一化规则见 TraceNormalizer.swift 与 trace-export.ts 头部注释。
+
+---
+
+## 附录 A：App 侧 transport 到本包类型的映射（M3.1 定稿）
+
+这一节写给宿主 App。包本身不认识 transport，但两端要对齐，映射规则写在这里。
+
+### finishReason → StopReason
+
+| transport 的 finishReason | StopReason | 说明 |
+|---|---|---|
+| `stop` | `.stop` | |
+| `length` | `.length` | 循环会把这条消息里的工具调用整批标失败、一个都不执行 |
+| `toolCalls` | `.toolUse` | |
+| `error` | `.error` | **不能吞成 `.stop`**，否则循环会当成正常收尾继续往下跑 |
+| `contentFilter` | `.stop` | 模型正常结束了但没给内容，不是错误；细节留在 `rawStopReason` |
+
+`rawStopReason` 一律填 transport 原本的字符串，便于排查。
+
+### 用量
+
+`Usage` 的 `input` / `output` / `cacheRead` / `cacheWrite` 分别对应 transport 的
+输入、输出、缓存命中、缓存写入 token；`cost.total` 填本次请求费用。
+供应商不报的字段填 0，不要留空——`totalTokens` 是这四项之和。
+
+### 工具结果消息
+
+送回模型时，OpenAI 兼容的接口从**消息级**字段读 `tool_call_id`，Anthropic 读的是
+内容块里的 id。两边都要带，只带一边会被 OpenAI 兼容的供应商以 400 拒绝：
+
+```
+An assistant message with 'tool_calls' must be followed by tool messages
+responding to each 'tool_call_id'
+```
+
+已知局限：一批里有多个并行工具结果时，OpenAI 兼容那边只认得第一个 id。
+
+### 思考块
+
+带签名的思考块必须原样编码回请求。Anthropic 在「开思考且同一条消息带工具调用」时
+强制要求，缺了会被拒。没有签名的思考块一律丢弃，不要发。
